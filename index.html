@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StyleList — Premium fashion wishlist</title>
+    <meta name="description" content="StyleList is a premium wishlist app for fashion lovers, streetwear and sportswear." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand-wrap">
+          <div class="brand-mark">S</div>
+          <div>
+            <p class="eyebrow">Premium wardrobe</p>
+            <h1>StyleList</h1>
+          </div>
+        </div>
+
+        <nav class="main-nav">
+          <a href="#dashboard">Dashboard</a>
+          <a href="#wishlist">Wishlist</a>
+          <a href="#collections">Collections</a>
+          <a href="#outfits">Outfits</a>
+          <a href="#profile">Profile</a>
+        </nav>
+
+        <div class="topbar-actions">
+          <label class="search-box" aria-label="Zoek producten">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 3a7.5 7.5 0 015.87 12.84l4.4 4.4 1.41-1.41-4.4-4.4A7.5 7.5 0 1110.5 3zm0 2a5.5 5.5 0 100 11 5.5 5.5 0 000-11z"/></svg>
+            <input id="searchInput" type="search" placeholder="Zoek sneakers, hoodies, jackets..." />
+          </label>
+          <button class="primary-btn small" id="scrollToAdd">+ Add item</button>
+        </div>
+      </header>
+
+      <main class="main-layout">
+        <section class="content-column">
+          <section id="dashboard" class="hero-panel glass-panel">
+            <div class="hero-copy">
+              <p class="eyebrow accent">Your style moment</p>
+              <h2>Build a wardrobe that matches your mood.</h2>
+              <p>
+                Save the best pieces from Nike, Adidas, JD Sports, Zara and your favorite brands in one clean and premium wishlist.
+              </p>
+              <div class="hero-actions">
+                <button class="primary-btn" id="openAddModal">Add product</button>
+                <button class="ghost-btn">View collections</button>
+              </div>
+            </div>
+
+            <div class="stats-grid">
+              <div class="stat-card">
+                <span>Total items</span>
+                <strong id="statTotalItems">0</strong>
+              </div>
+              <div class="stat-card">
+                <span>Wishlist value</span>
+                <strong id="statValue">€0</strong>
+              </div>
+              <div class="stat-card">
+                <span>Favorites</span>
+                <strong id="statFavorites">0</strong>
+              </div>
+              <div class="stat-card">
+                <span>Recent adds</span>
+                <strong id="statRecent">0</strong>
+              </div>
+            </div>
+          </section>
+
+          <section class="section-header">
+            <div>
+              <p class="eyebrow">Curated picks</p>
+              <h3>Mijn kledinglijst</h3>
+            </div>
+            <div class="chip-row" id="categoryFilters"></div>
+          </section>
+
+          <section id="wishlist" class="products-grid" id="productsGrid"></section>
+
+          <section class="two-column-grid">
+            <div class="panel glass-panel">
+              <div class="section-header small-header">
+                <div>
+                  <p class="eyebrow">Price tracking</p>
+                  <h3>Alerts</h3>
+                </div>
+              </div>
+              <div id="priceAlerts" class="alert-list"></div>
+            </div>
+
+            <div class="panel glass-panel">
+              <div class="section-header small-header">
+                <div>
+                  <p class="eyebrow">AI picks</p>
+                  <h3>Similar pieces</h3>
+                </div>
+              </div>
+              <div id="aiRecommendations" class="mini-card-grid"></div>
+            </div>
+          </section>
+
+          <section id="outfits" class="panel glass-panel outfit-panel">
+            <div class="section-header small-header">
+              <div>
+                <p class="eyebrow">Style builder</p>
+                <h3>Outfit board</h3>
+              </div>
+            </div>
+
+            <div class="outfit-builder-wrapper">
+              <div class="outfit-board" id="outfitBoard" aria-label="Outfit board">
+                <div class="empty-state">
+                  <span>Drop pieces here</span>
+                </div>
+              </div>
+
+              <div class="outfit-tools">
+                <input id="outfitName" type="text" placeholder="Naam outfit, bv. Gym Fit" />
+                <button class="primary-btn" id="saveOutfitBtn">Save outfit</button>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <aside class="sidebar-column">
+          <div class="glass-panel sidebar-panel sticky-panel">
+            <div class="section-header small-header">
+              <div>
+                <p class="eyebrow">Quick add</p>
+                <h3>Add product</h3>
+              </div>
+            </div>
+
+            <form id="addProductForm" class="add-product-form">
+              <label>
+                Product link
+                <input id="productUrl" type="url" placeholder="https://..." required />
+              </label>
+              <button type="submit" class="primary-btn">Fetch details</button>
+            </form>
+
+            <div class="mini-info">
+              <span class="dot"></span>
+              Auto detects name, price, merchant, and image from common fashion stores.
+            </div>
+
+            <div class="section-header small-header section-space">
+              <div>
+                <p class="eyebrow">Collections</p>
+                <h3>Saved lists</h3>
+              </div>
+            </div>
+
+            <div id="collectionsList" class="collection-stack"></div>
+
+            <form id="newCollectionForm" class="collection-form">
+              <input id="collectionName" type="text" placeholder="Nieuwe collectie" maxlength="28" />
+              <button type="submit" class="ghost-btn">Create</button>
+            </form>
+
+            <div id="profile" class="profile-card">
+              <div class="avatar">K</div>
+              <div>
+                <h4>Koen</h4>
+                <p>Streetwear + performance</p>
+              </div>
+            </div>
+
+            <div class="profile-metrics">
+              <div>
+                <span>Products</span>
+                <strong id="sidebarTotalProducts">0</strong>
+              </div>
+              <div>
+                <span>Value</span>
+                <strong id="sidebarTotalValue">€0</strong>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <template id="productCardTemplate">
+      <article class="product-card" draggable="true">
+        <button class="favorite-btn" aria-label="Toggle favorite">♥</button>
+        <div class="image-wrap">
+          <img alt="" />
+          <span class="badge">New</span>
+        </div>
+        <div class="product-body">
+          <div class="meta-row">
+            <span class="brand"></span>
+            <span class="category-pill"></span>
+          </div>
+          <h4 class="product-name"></h4>
+          <div class="store-row">
+            <span class="store"></span>
+            <span class="price"></span>
+          </div>
+          <div class="card-actions">
+            <button class="mini-btn add-to-outfit">Add to outfit</button>
+            <button class="mini-btn secondary">View</button>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
